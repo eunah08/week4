@@ -84,9 +84,64 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void moveOddItemsToBack(LinkedList *ll)
-{
-	/* add your code here */
+void moveOddItemsToBack(LinkedList *ll) 
+{ 
+	ListNode *prev; 
+	ListNode *current; 
+	ListNode *tail; 
+
+	prev = NULL;
+	current = ll->head; 
+	tail = ll->head;
+
+	int i = 0; 
+	int count = 0; 
+ 
+	// 홀수 개수 세기 
+		// 리스트의 값을 모두 확인 
+		while (current != NULL)	// 포인터로 head부터 NULL까지 확인 
+		{ 
+			// 값 % 2 != 0 
+			if (current -> item %2 != 0){ 
+				// count += 1 
+				count++; 
+			} 
+			current = current->next; 
+		} 
+	 
+		 
+	//count번 홀수를 뒤로 보내기 
+		// count번 반복 
+		while (i < count){ 
+			current = ll->head;		// current를 head로 초기화 
+
+			while (tail->next != NULL){	// tail을 마지막 노드로 설정
+				tail = tail->next;		// tall = NULL
+			}
+			
+			while (current != NULL){	// 리스트를 처음부터 확인 
+				if ( current -> item %2 != 0){ // 현재 노드의 값이 홀수라면 
+					// 뒤로 보내기
+					if (current == ll->head){
+						ll->head = current->next;
+					}
+					else{
+						prev->next = current->next;
+					}
+
+					tail->next = current;
+					current->next = NULL;	 
+					// 1번 뒤로 보내기 완료 (i 횟수 추가) 
+					i++; 
+					break; 
+				}
+
+				prev = current;
+				current = current->next; 
+			}
+		} 
+	 
+		// count번 뒤로 보내면 반복 종료
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
