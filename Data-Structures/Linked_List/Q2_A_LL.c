@@ -101,9 +101,40 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
+void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)  // 두 연결 리스트의 값을 번갈아 result에 넣는 함수
 {
-    /* add your code here */
+    ListNode *l1;                         // L1에서 현재 확인하고 있는 노드를 가리키는 포인터
+    ListNode *l2;                         // L2에서 현재 확인하고 있는 노드를 가리키는 포인터
+    LinkedList result;                    // 최종 결과를 저장할 새로운 연결 리스트
+
+    result.head = NULL;                   // result의 처음 노드는 아직 없으므로 NULL
+    result.size = 0;                      // result에 들어 있는 노드 개수를 0으로 설정
+
+    l1 = ll1->head;                       // l1이 L1의 첫 번째 노드를 가리키게 함
+    l2 = ll2->head;                       // l2가 L2의 첫 번째 노드를 가리키게 함
+
+    while (l1 != NULL && l2 != NULL)      // L1과 L2에 모두 노드가 남아 있는 동안 반복
+    {
+        insertNode(&result, result.size, l1->item);  // L1의 현재 값을 result의 마지막에 추가
+        removeNode(ll1, 0);                           // L1의 첫 번째 노드를 삭제
+        l1 = ll1->head;                               // 삭제 후 L1의 새로운 첫 번째 노드를 l1에 저장
+
+        insertNode(&result, result.size, l2->item);  // L2의 현재 값을 result의 마지막에 추가
+        removeNode(ll2, 0);                           // L2의 첫 번째 노드를 삭제
+        l2 = ll2->head;                               // 삭제 후 L2의 새로운 첫 번째 노드를 l2에 저장
+    }
+
+    if (l1 != NULL && l2 == NULL)          // L2는 끝났고 L1에는 아직 노드가 남아 있는 경우
+    {
+        while (l1 != NULL)                 // L1에 남은 노드가 모두 없어질 때까지 반복
+        {
+            insertNode(&result, result.size, l1->item);  // L1의 남은 값을 result에 추가
+            l1 = l1->next;                                // l1을 다음 노드로 이동
+        }
+    }
+
+    ll1->head = result.head;                // L1의 head를 result의 head로 변경
+    ll1->size = result.size;                // L1의 크기를 result의 크기로 변경
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
