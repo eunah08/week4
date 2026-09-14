@@ -88,9 +88,8 @@ int main()
 
 int moveMaxToFront(ListNode **ptrHead)
 {
-    /* add your code here */
+	
 }
-
 //////////////////////////////////////////////////////////////////////////////////
 
 void printList(LinkedList *ll){

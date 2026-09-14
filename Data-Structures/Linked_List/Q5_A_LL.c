@@ -102,7 +102,41 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
+	ListNode *current;
+	int count = 0;
+	int i = 0;
+	int frontCount;
+
+	current = ll->head;
+
+	// 갯수 세기
+	// 리스트의 값을 모두 확인
+	while (current != NULL)	// 포인터로 head부터 NULL까지 확인
+	{
+		count++;
+		current = current->next;
+	}
+
+	// 앞쪽 리스트에 들어갈 노드 개수
+	frontCount = (count + 1) / 2;
+	current = ll->head;		// current를 head로 초기화
+
+	// frontList에 앞쪽 노드 넣기
+	while (i < frontCount && current != NULL)
+	{
+		insertNode(resultFrontList, resultFrontList->size, current->item);	// 현재 값을 frontList의 마지막에 추가
+		removeNode(ll, 0);														// 원래 리스트의 첫 번째 노드를 삭제
+		current = ll->head;														// 삭제 후 새로운 첫 번째 노드를 current에 저장
+		i++;
+	}
+
+	// backList에 나머지 노드 넣기
+	while (current != NULL)
+	{
+		insertNode(resultBackList, resultBackList->size, current->item);		// 현재 값을 backList의 마지막에 추가
+		removeNode(ll, 0);														// 원래 리스트의 첫 번째 노드를 삭제
+		current = ll->head;														// 삭제 후 새로운 첫 번째 노드를 current에 저장
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
