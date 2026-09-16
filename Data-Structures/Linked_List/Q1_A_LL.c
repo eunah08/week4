@@ -227,7 +227,7 @@ int insertNode(LinkedList *ll, int index, int value){
 		ll->head->next = cur;
 		ll->size++;
 		return 0;
-	}
+	} 
 
 
 	// Find the nodes before and at the target position
